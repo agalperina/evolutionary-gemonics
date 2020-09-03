@@ -9,22 +9,34 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Exercise 1
+```{r ex1}
+x <- 3
+y <- 15
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+x + y
+y - x
+x * y
+y / x
 ```
 
-## Including Plots
+## Exercise 2
+```{r ex2}
+x <- 2
+y <- 3
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+(x^5) > (y^4)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Exercise 3
+```{r ex3}
+v <- c(22,62,148,43,129)
+sum(v)
+v / sum(v)
+```
+
+## Exercise 4
+```{r ex4}
+nuc <- c("G","T","C","A")
+sort(nuc)
+```
