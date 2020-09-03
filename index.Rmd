@@ -8,15 +8,14 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-![Alt Text](/Users/Anastasia/Downloads/genomics.PNG)
+![](/Users/Anastasia/Downloads/genomics.PNG)
 
 These are my Evolutionary Genomics Lab Reports
 
-## Link to Lab 1
+Link to Lab 1
 [Lab1](Lab1.html)
 
-## Link to lab 2
+Link to lab 2
 [Lab2](Lab2.html)
 
 
