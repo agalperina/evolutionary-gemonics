@@ -1,0 +1,13 @@
+---
+title: "paper"
+author: "Anastasia Galperina"
+date: "9/3/2020"
+output: html_document
+bibliography: references.bib
+---
+
+Application written in R [@RCoreTeam] using the Shiny framework [@Chang2015]
+
+# References
+
+
