@@ -1,0 +1,50 @@
+---
+title: "Lab3B"
+author: "Anastasia Galperina"
+date: "9/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Challenge 1
+Using pipes, subset the surveys data to include animals collected before 1995 and retain only the columns year, sex, and weight.
+  
+  Here are the first 30 rows
+  
+  ![](/Users/Anastasia/Downloads/challenge1table_img.PNG)
+
+# Challenge 2
+Create a new data frame from the surveys data that meets the following criteria: contains only the species_id column and a new column called hindfoot_cm containing the hindfoot_length values converted to centimeters. In this hindfoot_cm column, there are no NAs and all values are less than 3.
+
+  Here are the first 30 rows
+  
+  ![](/Users/Anastasia/Downloads/challenge2table_img.PNG)
+  
+# Challenge 3
+How many animals were caught in each plot_type surveyed?
+
+4: Long-term Krat, Rodent, Short-term Krat, Spectab
+
+Use group_by() and summarize() to find the mean, min, and max hindfoot length for each species (using species_id). Also add the number of observations
+
+  ![](/Users/Anastasia/Downloads/challenge3table_img.PNG)
+
+What was the heaviest animal measured in each year?
+
+Neotoma albigula
+
+# Challenge 4
+Spread the surveys data frame with year as columns, plot_id as rows, and the number of genera per plot as the values.
+
+  ![](/Users/Anastasia/Downloads/challenge4table(1).PNG)
+
+Take that data frame and gather() it again, so each row is a unique plot_id by year combination
+
+  ![](/Users/Anastasia/Downloads/challenge4table(2).PNG)
+
+Use gather() to create a dataset where we have a key column called measurement and a value column that takes on the value of either hindfoot_length or weight. Calculate the average of each measurement in each year for each different plot_type. Then spread() them into a data set with a column for hindfoot_length and weight.
+
+  ![](/Users/Anastasia/Downloads/challenge4table(3).PNG)

@@ -1,0 +1,62 @@
+---
+title: "Lab3A"
+author: "Anastasia Galperina"
+date: "9/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Challenge 1
+What is the class of the object surveys?
+
+  Class: Data Frame
+  
+How many rows and how many columns are in this object?
+
+  Rows: 34786 ; Columns: 13
+  
+How many species have been recorded during these surveys?
+
+  Species: 48
+  
+# Challenge 2
+Create a data.frame (surveys_200) containing only the data in row 200 of the surveys dataset.
+
+  ![](/Users/Anastasia/Downloads/challenge2code_img.PNG)
+  
+Notice how nrow() gave you the number of rows in a data.frame?Use that number to pull out just that last row in the data frame. Compare that with what you see as the last row using tail() to make sure it’s meeting expectations. Pull out that last row using nrow() instead of the row number. Create a new data frame (surveys_last) from that last row.
+  
+  TODO
+  
+Use nrow() to extract the row that is in the middle of the data frame. Store the content of this row in an object named surveys_middle.
+
+  TODO
+
+Combine nrow() with the - notation above to reproduce the behavior of head(surveys), keeping just the first through 6th rows of the surveys dataset.
+  
+  TODO
+  
+## Challenge 3
+  ![](/Users/Anastasia/Downloads/challenge3graph_img.PNG)
+  
+## Challenge 4
+We have seen how data frames are created when using read.csv(), but they can also be created by hand with the data.frame() function. There are a few mistakes in this hand-crafted data.frame. Can you spot and fix them? Don’t hesitate to experiment!
+
+ ![](/Users/Anastasia/Downloads/Challenge4code_img.PNG)
+          
+Can you predict the class for each of the columns in the following example? Check your guesses using str(country_climate):
+Are they what you expected? Why? Why not?
+
+  country, climate, temperature, and northern_hemisphere are factors; has_kangaroo is
+  numeric
+  
+What would have been different if we had added stringsAsFactors = FALSE when creating the data frame?
+
+   using stringsAsFactors = FALSE would have made character vectors instead of factors
+   
+What would you need to change to ensure that each column had the accurate data type?
+
+  removing the quotes in temperature and northern_hemisphere and replacing 1 by TRUE in the   has_kangaroo column would give what was probably intended

@@ -1,0 +1,199 @@
+---
+title: "Lab3_Data_Wrangling"
+author: "Anastasia Galperina"
+date: "9/7/2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Add tidyverse library
+```{r}
+  library(tidyverse)
+```
+
+## Download data into data folder
+```{r, eval = FALSE}
+   download.file(url="https://ndownloader.figshare.com/files/2292169",
+              destfile = "data/portal_data_joined.csv")
+```
+
+## Load data
+```{r}
+  surveys <- read_csv("data/portal_data_joined.csv")
+  head(surveys)
+  str(surveys)
+  
+  ## Starting With Data
+      # first element in the first column of the data frame (as a vector)
+      surveys[1, 1]   
+      # first element in the 6th column (as a vector)
+      surveys[1, 6]   
+      # first column of the data frame (as a vector)
+      surveys[, 1]    
+      # first column of the data frame (as a data.frame)
+      surveys[1]      
+      # first three elements in the 7th column (as a vector)
+      surveys[1:3, 7] 
+      # the 3rd row of the data frame (as a data.frame)
+      surveys[3, ]    
+      # equivalent to head_surveys <- head(surveys)
+      head_surveys <- surveys[1:6, ] 
+      # The whole data frame, except the first column
+      surveys[, -1]        
+      # Equivalent to head(surveys)
+      surveys[-(7:34786), ] 
+    
+      #Challenge
+      surveys_200 <- surveys[200, ]
+      data.frame (surveys_200)
+      
+      n_rows <- nrow(surveys)
+      surveys_last <- surveys[n_rows, ]
+    
+      surveys_middle <- surveys[n_rows / 2, ]
+    
+      surveys_head <- surveys[-(7:n_rows), ]
+    
+    
+      sex <- factor(c("male", "female", "female", "male"))
+      levels(sex)
+      nlevels(sex)
+      
+      head(sex)
+      levels(sex)
+      levels(sex)[1] <- "undetermined"
+      levels(sex)
+      head(sex)
+    
+      levels(sex)[2:3] <- c("female", "male")
+      sex <- factor(sex, levels = c("female", "male", "undetermined"))
+      plot(sex)
+    
+      ## Compare the difference between our data read as `factor` vs `character`.
+      surveys <- read.csv("data/portal_data_joined.csv", stringsAsFactors = TRUE)
+      str(surveys)
+      surveys <- read.csv("data/portal_data_joined.csv", stringsAsFactors = FALSE)
+      str(surveys)
+      ## Convert the column "plot_type" into a factor
+      surveys$plot_type <- factor(surveys$plot_type)
+      
+      ## Challenge
+      animal_data <- data.frame(
+              animal = c("dog", "cat", "sea cucumber", "sea urchin"),
+              feel = c("furry","furry", "squishy", "spiny"),
+              weight = c(45, 8, 1.1, 0.8)
+              )
+    
+      country_climate <- data.frame(
+           country = c("Canada", "Panama", "South Africa", "Australia"),
+           climate = c("cold", "hot", "temperate", "hot/temperate"),
+           temperature = c(10, 30, 18, 15),
+           northern_hemisphere = c(TRUE, TRUE, FALSE, FALSE),
+           has_kangaroo = c(FALSE, FALSE, FALSE, TRUE)
+           )
+      
+  ## Data Manipulating
+      # send the surveys dataset first through filter() to keep rows where weight is less         than 5, then through select() to keep only the species_id, sex, and weight                columns. Since %>% takes the object on its left and passes it as the first                argument to the function on its right, we don’t need to explicitly include the            data frame as an argument to the filter() and select() functions any more.
+        surveys %>%
+          filter(weight < 5) %>%
+          select(species_id, sex, weight)
+
+      # Challenge 1
+          # removed because the table generated was too long
+        
+        
+      # Create a second new column based on the first new column (se a pipe to view the 
+      # head() of the data)
+        surveys %>%
+          mutate(weight_kg = weight / 1000) %>%
+          head()
+      
+      # Challenge 2
+        surveys_hindfoot_cm <- surveys %>%
+          filter(!is.na(hindfoot_length)) %>%
+          mutate(hindfoot_cm = hindfoot_length / 10) %>%
+          filter(hindfoot_cm < 3) %>%
+          select(species_id, hindfoot_cm)
+        
+        # removed because the table generated was too long
+        
+        # Group by multiple columns
+        surveys %>%
+          group_by(sex, species_id) %>%
+          summarize(mean_weight = mean(weight, na.rm = TRUE)) %>% 
+          tail()
+      
+        # Count the number of rows of data for each sex
+        surveys %>%
+          count(sex) 
+
+      # Challenge 3
+        surveys %>%
+          count(plot_type) 
+        
+        surveys %>%
+          filter(!is.na(hindfoot_length)) %>%
+          group_by(species_id) %>%
+          summarize(
+            mean_hindfoot_length = mean(hindfoot_length),
+            min_hindfoot_length = min(hindfoot_length),
+            max_hindfoot_length = max(hindfoot_length),
+            n = n()
+            )
+        
+        surveys %>%
+          filter(!is.na(weight)) %>%
+          group_by(year) %>%
+          filter(weight == max(weight)) %>%
+          select(year, genus, species, weight) %>%
+          arrange(year)
+        
+     surveys_gw <- surveys %>%
+      filter(!is.na(weight)) %>%
+      group_by(plot_id, genus) %>%
+      summarize(mean_weight = mean(weight))
+     
+     str(surveys_gw)
+
+     surveys_spread <- surveys_gw %>%
+      spread(key = genus, value = mean_weight)
+
+     str(surveys_spread)
+     
+     surveys_gw %>%
+      spread(genus, mean_weight, fill = 0) %>%
+      head()
+     
+     surveys_gather <- surveys_spread %>%
+      gather(key = "genus", value = "mean_weight", -plot_id)
+
+     str(surveys_gather)
+     
+     surveys_spread %>%
+      gather(key = "genus", value = "mean_weight", Baiomys:Spermophilus) %>%
+      head()
+     
+     # Challenge 4
+        surveys_spread_genera <- surveys %>%
+          group_by(plot_id, year) %>%
+          summarize(n_genera = n_distinct(genus)) %>%
+          spread(year, n_genera)
+     
+        head(surveys_spread_genera)
+    
+        surveys_spread_genera %>%
+          gather("year", "n_genera", -plot_id)
+    
+        surveys_long <- surveys %>%
+          gather("measurement", "value", hindfoot_length, weight)
+    
+        surveys_long %>%
+          group_by(year, measurement, plot_type) %>%
+          summarize(mean_value = mean(value, na.rm=TRUE)) %>%
+          spread(measurement, mean_value)
+```
