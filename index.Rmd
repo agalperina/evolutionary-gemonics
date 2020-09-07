@@ -18,4 +18,9 @@ Link to Lab 1
 Link to lab 2
 [Lab2](Lab2.html)
 
+Link to lab 3A - Starting With Data
+[Lab3A](lab3A.html)
+
+Link to lab 3B - Manipulating Data
+[Lab3B](Lab3B.html)
 
