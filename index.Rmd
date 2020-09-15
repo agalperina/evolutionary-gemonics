@@ -24,3 +24,8 @@ Link to lab 3A - Starting With Data
 Link to lab 3B - Manipulating Data
 [Lab3B](Lab3B.html)
 
+Link to lab 4A
+[Lab4A](Lab4.html)
+
+Link to lab 4B
+[Lab4B](Lab4B.html)
