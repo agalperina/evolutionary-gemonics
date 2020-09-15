@@ -56,7 +56,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
 ```{r}
   deaths_03_13_2020_report <- report_03_13_2020 %>% 
     group_by(Country_Region) %>% 
-    summarize(total_deaths = sum(Deaths, na.rm = TRUE))
+    summarize(total_deaths = sum(Deaths))
 
   datatable(deaths_03_13_2020_report)
 ```
@@ -64,7 +64,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
 ```{r}
   deaths_09_13_2020_report <- report_09_13_2020 %>% 
     group_by(Country_Region) %>% 
-    summarize(total_deaths = sum(Deaths, na.rm = TRUE))
+    summarize(total_deaths = sum(Deaths))
 
   datatable(deaths_09_13_2020_report)
 ```
@@ -75,7 +75,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
   counts_03_13_2020_report <- report_03_13_2020 %>% 
     filter(Country_Region == "US") %>% 
     group_by(Country_Region) %>% 
-    summarize(total_cases = sum(Confirmed, na.rm = TRUE))
+    summarize(total_cases = sum(Confirmed))
 
   datatable(counts_03_13_2020_report)
 ```
@@ -84,7 +84,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
   counts_09_13_2020_report <- report_09_13_2020 %>% 
     filter(Country_Region == "US") %>% 
     group_by(Country_Region) %>% 
-    summarize(total_cases = sum(Confirmed, na.rm = TRUE))
+    summarize(total_cases = sum(Confirmed))
 
   datatable(counts_09_13_2020_report)
 ```
@@ -118,7 +118,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
 ```{r}
   confirmed_cases_03_12_2020 <- report_03_12_2020 %>% 
     group_by(Country_Region) %>% 
-    summarize(total_cases = sum(Confirmed, na.rm = TRUE)) %>% 
+    summarize(total_cases = sum(Confirmed)) %>% 
     arrange(desc(total_cases)) %>% 
     slice_max(total_cases, n = 10)
 
@@ -134,7 +134,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
 ```{r}
   confirmed_cases_09_12_2020 <- report_09_12_2020 %>% 
     group_by(Country_Region) %>% 
-    summarize(total_cases = sum(Confirmed, na.rm = TRUE)) %>% 
+    summarize(total_cases = sum(Confirmed)) %>% 
     arrange(desc(total_cases)) %>% 
     slice_max(total_cases, n = 10)
 
@@ -150,7 +150,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
 ```{r}
   deaths_03_12_2020_report <- report_03_12_2020 %>% 
     group_by(Country_Region) %>% 
-    summarize(total_deaths = sum(Deaths, na.rm = TRUE)) %>% 
+    summarize(total_deaths = sum(Deaths)) %>% 
     arrange(desc(total_deaths)) %>% 
     slice_max(total_deaths, n = 10)
 
@@ -166,7 +166,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
 ```{r}
   deaths_09_12_2020_report <- report_09_12_2020 %>% 
     group_by(Country_Region) %>% 
-    summarize(total_deaths = sum(Deaths, na.rm = TRUE)) %>% 
+    summarize(total_deaths = sum(Deaths)) %>% 
     arrange(desc(total_deaths)) %>% 
     slice_max(total_deaths, n = 10)
 
@@ -185,7 +185,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
   confirmed_cases_03_12_2020 <- report_03_12_2020 %>% 
     filter(Country_Region =="US") %>% 
     group_by(Province_State) %>% 
-    summarize(total_cases = sum(Confirmed, na.rm = TRUE)) %>% 
+    summarize(total_cases = sum(Confirmed)) %>% 
     arrange(desc(total_cases)) %>% 
     slice_max(total_cases, n = 10)
 
@@ -202,7 +202,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
   confirmed_cases_09_12_2020 <- report_09_12_2020 %>% 
     filter(Country_Region =="US") %>% 
     group_by(Province_State) %>% 
-    summarize(total_cases = sum(Confirmed, na.rm = TRUE)) %>% 
+    summarize(total_cases = sum(Confirmed)) %>% 
     arrange(desc(total_cases)) %>% 
     slice_max(total_cases, n = 10)
 
@@ -221,7 +221,7 @@ What are the differences between 3/13/2020, the Friday before spring break 2020 
     group_by(Province_State) %>% 
     summarize(total_deaths = sum(Deaths)) %>% 
     arrange(desc(total_deaths)) %>% 
-    slice(total_deaths, n = 10)
+    slice(1:10) 
 
   deaths_03_12_2020_report
 ```
