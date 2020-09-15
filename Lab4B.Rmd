@@ -1,0 +1,116 @@
+---
+title: "Lab4B"
+author: "Anastasia Galperina"
+date: "9/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+  library(tidyverse)
+```
+
+```{r}
+  surveys_complete <- read_csv("data/surveys_complete.csv")
+```
+
+# Plotting
+```{r}
+  ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +
+  geom_point()
+```
+
+```{r}
+  # Assign plot to a variable
+  surveys_plot <- ggplot(data = surveys_complete, 
+                       mapping = aes(x = weight, y = hindfoot_length))
+
+  # Draw the plot (+ must be in first line to function)
+  surveys_plot + 
+    geom_point()
+```
+
+# Challenge 1
+
+```{r}
+  library(hexbin)
+```
+
+```{r}
+  surveys_plot +
+  geom_hex()
+```
+
+What are the relative strengths and weaknesses of a hexagonal bin plot compared to a scatter plot? 
+
+  Hexbin seems to show more of a range while a scatter plot has the exact data points visible. 
+  I think that a scatter plot would be more useful for plotting precise data while hexbin might
+  be useful to plot large data sets where the data is really scattered to be able to compare 
+  different data ranges.
+  
+# Building Plots Iteratively
+
+```{r}
+  ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +
+    geom_point()
+```
+
+```{r}
+  ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +
+    geom_point(alpha = 0.1)
+```
+
+```{r}
+  ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
+    geom_point(alpha = 0.1, color = "blue")
+```
+
+```{r}
+ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
+    geom_point(alpha = 0.1, aes(color = species_id))
+```
+
+# Challenge 2
+
+```{r}
+  ggplot(data = surveys_complete, 
+       mapping = aes(x = species_id, y = weight)) +
+       geom_point(aes(color = plot_type))
+```
+
+# Boxplot
+
+```{r}
+  ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot()
+```
+
+```{r}
+  ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot(alpha = 0) +
+    geom_jitter(alpha = 0.3, color = "tomato")
+```
+
+```{r}
+  ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_boxplot(alpha = 1) +
+    geom_jitter(alpha = 0.01, color = "tomato")
+```
+
+# Challenge 3
+
+```{r}
+  ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+    geom_violin() +
+    scale_y_log10()
+```
+
+```{r}
+  ggplot(data = surveys_complete, mapping = aes(x = species_id, y = hindfoot_length)) +
+    geom_boxplot(color = "red") + 
+    geom_jitter(alpha = 0.01, color = "blue")
+```
+

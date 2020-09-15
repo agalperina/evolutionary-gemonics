@@ -1,0 +1,250 @@
+---
+title: "Lab4"
+author: "Anastasia Galperina"
+date: "9/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+  library(tidyverse)
+```
+
+```{r}
+  library(DT)
+```
+
+```{r}
+  report_03_11_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-11-2020.csv")) %>%
+  rename(Country_Region = "Country/Region", Province_State = "Province/State")
+```
+
+```{r}
+  str(report_03_11_2020)
+```
+
+```{r}
+  datatable(report_03_11_2020)
+```
+
+# Excercise 1
+```{r}
+  report_03_13_2020 <- read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-13-2020.csv")) %>% 
+  rename(Country_Region = "Country/Region", Province_State = "Province/State")
+```
+
+```{r}
+  report_09_13_2020 <- read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/09-13-2020.csv")) 
+```
+
+```{r}
+  str(report_03_13_2020)
+```
+
+```{r}
+  str(report_09_13_2020)
+```
+
+# Question 1
+What are the differences between 3/13/2020, the Friday before spring break 2020 and yesterday 6 months later on 9/13/2020?
+
+# Question 2
+  
+```{r}
+  deaths_03_13_2020_report <- report_03_13_2020 %>% 
+    group_by(Country_Region) %>% 
+    summarize(total_deaths = sum(Deaths, na.rm = TRUE))
+
+  datatable(deaths_03_13_2020_report)
+```
+
+```{r}
+  deaths_09_13_2020_report <- report_09_13_2020 %>% 
+    group_by(Country_Region) %>% 
+    summarize(total_deaths = sum(Deaths, na.rm = TRUE))
+
+  datatable(deaths_09_13_2020_report)
+```
+
+# Question 3
+
+```{r}
+  counts_03_13_2020_report <- report_03_13_2020 %>% 
+    filter(Country_Region == "US") %>% 
+    group_by(Country_Region) %>% 
+    summarize(total_cases = sum(Confirmed, na.rm = TRUE))
+
+  datatable(counts_03_13_2020_report)
+```
+
+```{r}
+  counts_09_13_2020_report <- report_09_13_2020 %>% 
+    filter(Country_Region == "US") %>% 
+    group_by(Country_Region) %>% 
+    summarize(total_cases = sum(Confirmed, na.rm = TRUE))
+
+  datatable(counts_09_13_2020_report)
+```
+# Question 4
+
+```{r}
+  deaths_03_13_2020_report %>% 
+    arrange(desc(total_deaths)) %>% 
+    slice_max(total_deaths, n = 10)
+```
+
+```{r}
+  deaths_09_13_2020_report %>% 
+    arrange(desc(total_deaths)) %>% 
+    slice_max(total_deaths, n = 10)
+```
+
+# Excercise 2
+
+```{r}
+  report_03_12_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-12-2020.csv")) %>%
+  rename(Country_Region = "Country/Region", Province_State = "Province/State")
+```
+
+```{r}
+  report_09_12_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/09-12-2020.csv")) 
+```
+
+# Question 5
+
+```{r}
+  confirmed_cases_03_12_2020 <- report_03_12_2020 %>% 
+    group_by(Country_Region) %>% 
+    summarize(total_cases = sum(Confirmed, na.rm = TRUE)) %>% 
+    arrange(desc(total_cases)) %>% 
+    slice_max(total_cases, n = 10)
+
+  confirmed_cases_03_12_2020
+```
+
+# Confirmed Cases Graph 3/12/20
+```{r}
+  ggplot(data = confirmed_cases_03_12_2020, aes(x = Country_Region, y = total_cases)) +
+  geom_point()
+```
+
+```{r}
+  confirmed_cases_09_12_2020 <- report_09_12_2020 %>% 
+    group_by(Country_Region) %>% 
+    summarize(total_cases = sum(Confirmed, na.rm = TRUE)) %>% 
+    arrange(desc(total_cases)) %>% 
+    slice_max(total_cases, n = 10)
+
+  confirmed_cases_09_12_2020
+```
+
+# Confirmed Cases Graph 9/12/20
+```{r}
+  ggplot(data = confirmed_cases_09_12_2020, aes(x = Country_Region, y = total_cases)) +
+  geom_point()
+```
+
+```{r}
+  deaths_03_12_2020_report <- report_03_12_2020 %>% 
+    group_by(Country_Region) %>% 
+    summarize(total_deaths = sum(Deaths, na.rm = TRUE)) %>% 
+    arrange(desc(total_deaths)) %>% 
+    slice_max(total_deaths, n = 10)
+
+  deaths_03_12_2020_report
+```
+
+# Deaths Graph 3/12/20
+```{r}
+  ggplot(data = deaths_03_12_2020_report, aes(x = Country_Region, y = total_deaths)) +
+  geom_point()
+```
+
+```{r}
+  deaths_09_12_2020_report <- report_09_12_2020 %>% 
+    group_by(Country_Region) %>% 
+    summarize(total_deaths = sum(Deaths, na.rm = TRUE)) %>% 
+    arrange(desc(total_deaths)) %>% 
+    slice_max(total_deaths, n = 10)
+
+  deaths_09_12_2020_report
+```
+
+# Deaths Graph 9/12/20
+```{r}
+  ggplot(data = deaths_09_12_2020_report, aes(x = Country_Region, y = total_deaths)) +
+  geom_point()
+```
+
+# Question 6
+
+```{r}
+  confirmed_cases_03_12_2020 <- report_03_12_2020 %>% 
+    filter(Country_Region =="US") %>% 
+    group_by(Province_State) %>% 
+    summarize(total_cases = sum(Confirmed, na.rm = TRUE)) %>% 
+    arrange(desc(total_cases)) %>% 
+    slice_max(total_cases, n = 10)
+
+  confirmed_cases_03_12_2020
+```
+
+# Confirmed Cases Graph 3/12/20
+```{r}
+  ggplot(data = confirmed_cases_03_12_2020, aes(x = total_cases, y = Province_State)) +
+  geom_bar(stat = 'identity')
+```
+
+```{r}
+  confirmed_cases_09_12_2020 <- report_09_12_2020 %>% 
+    filter(Country_Region =="US") %>% 
+    group_by(Province_State) %>% 
+    summarize(total_cases = sum(Confirmed, na.rm = TRUE)) %>% 
+    arrange(desc(total_cases)) %>% 
+    slice_max(total_cases, n = 10)
+
+  confirmed_cases_09_12_2020
+```
+
+# Confirmed Cases Graph 9/12/20
+```{r}
+  ggplot(data = confirmed_cases_09_12_2020, aes(x = total_cases, y = Province_State)) +
+  geom_bar(stat = 'identity' )
+```
+
+```{r}
+  deaths_03_12_2020_report <- report_03_12_2020 %>% 
+    filter(Country_Region =="US") %>% 
+    group_by(Province_State) %>% 
+    summarize(total_deaths = sum(Deaths)) %>% 
+    arrange(desc(total_deaths)) %>% 
+    slice(total_deaths, n = 10)
+
+  deaths_03_12_2020_report
+```
+# Deaths Graph 3/12/20
+
+```{r}
+  ggplot(data = deaths_03_12_2020_report, aes(x = total_deaths, y = Province_State)) +
+  geom_bar(stat = 'identity')
+```
+
+```{r}
+  deaths_09_12_2020_report <- report_09_12_2020 %>% 
+    filter(Country_Region =="US") %>% 
+    group_by(Province_State) %>% 
+    summarize(total_deaths = sum(Deaths)) %>% 
+    arrange(desc(total_deaths)) %>% 
+    slice_max(total_deaths, n = 10)
+
+  deaths_09_12_2020_report
+```
+
+# Deaths Graph 9/12/20
+```{r}
+  ggplot(data = deaths_09_12_2020_report, aes(x = total_deaths, y = Province_State)) +
+  geom_bar(stat = 'identity')
+```
