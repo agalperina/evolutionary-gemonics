@@ -53,29 +53,29 @@ What are the relative strengths and weaknesses of a hexagonal bin plot compared 
   
 # Building Plots Iteratively
 
-```{r}
+```{r, eval = FALSE}
   ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +
     geom_point()
 ```
 
-```{r}
+```{r, eval = FALSE}
   ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1)
 ```
 
-```{r}
+```{r, eval = FALSE}
   ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1, color = "blue")
 ```
 
-```{r}
+```{r, eval = FALSE}
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1, aes(color = species_id))
 ```
 
 # Challenge 2
 
-```{r}
+```{r, eval = FALSE}
   ggplot(data = surveys_complete, 
        mapping = aes(x = species_id, y = weight)) +
        geom_point(aes(color = plot_type))
@@ -83,18 +83,18 @@ ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) 
 
 # Boxplot
 
-```{r}
+```{r, eval = FALSE}
   ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
     geom_boxplot()
 ```
 
-```{r}
+```{r, eval = FALSE}
   ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
     geom_boxplot(alpha = 0) +
     geom_jitter(alpha = 0.3, color = "tomato")
 ```
 
-```{r}
+```{r, eval = FALSE}
   ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
     geom_boxplot(alpha = 1) +
     geom_jitter(alpha = 0.01, color = "tomato")
@@ -102,15 +102,196 @@ ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) 
 
 # Challenge 3
 
-```{r}
+```{r, eval = FALSE}
   ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
     geom_violin() +
     scale_y_log10()
 ```
 
-```{r}
+```{r, eval = FALSE}
   ggplot(data = surveys_complete, mapping = aes(x = species_id, y = hindfoot_length)) +
     geom_boxplot(color = "red") + 
     geom_jitter(alpha = 0.01, color = "blue")
+```
+
+# Plotting time series data
+
+```{r}
+  yearly_counts <- surveys_complete %>%
+    count(year, genus)
+```
+
+```{r}
+  ggplot(data = yearly_counts, aes(x = year, y = n)) +
+     geom_line()
+```
+
+```{r}
+ggplot(data = yearly_counts, aes(x = year, y = n, group = genus)) +
+    geom_line()
+```
+
+```{r}
+  ggplot(data = yearly_counts, aes(x = year, y = n, color = genus)) +
+    geom_line()
+```
+
+# Integrating the pipe operator with ggplot2
+
+```{r}
+  yearly_counts %>% 
+    ggplot(mapping = aes(x = year, y = n, color = genus)) +
+    geom_line()
+```
+
+```{r}
+  yearly_counts_graph <- surveys_complete %>%
+    count(year, genus) %>% 
+    ggplot(mapping = aes(x = year, y = n, color = genus)) +
+    geom_line()
+
+  yearly_counts_graph
+```
+
+# Faceting
+
+```{r}
+  ggplot(data = yearly_counts, aes(x = year, y = n)) +
+    geom_line() +
+    facet_wrap(facets = vars(genus))
+```
+
+```{r}
+   yearly_sex_counts <- surveys_complete %>%
+    count(year, genus, sex)
+```
+
+```{r}
+  ggplot(data = yearly_sex_counts, mapping = aes(x = year, y = n, color = sex)) +
+    geom_line() +
+    facet_wrap(facets =  vars(genus))
+```
+
+```{r}
+  ggplot(data = yearly_sex_counts, 
+      mapping = aes(x = year, y = n, color = sex)) +
+    geom_line() +
+    facet_grid(rows = vars(sex), cols =  vars(genus))
+```
+
+```{r}
+  ggplot(data = yearly_sex_counts, 
+       mapping = aes(x = year, y = n, color = sex)) +
+  geom_line() +
+  facet_grid(rows = vars(genus))
+```
+
+```{r}
+  ggplot(data = yearly_sex_counts, 
+       mapping = aes(x = year, y = n, color = sex)) +
+  geom_line() +
+  facet_grid(cols = vars(genus))
+```
+
+# ggplot2 themes
+
+```{r}
+   ggplot(data = yearly_sex_counts, 
+        mapping = aes(x = year, y = n, color = sex)) +
+     geom_line() +
+     facet_wrap(vars(genus)) +
+     theme_bw()
+```
+
+# Challenge 3
+```{r}
+yearly_weight <- surveys_complete %>%
+                group_by(year, species_id) %>%
+                summarize(avg_weight = mean(weight))
+```
+
+```{r}
+  ggplot(data = yearly_weight, mapping = aes(x=year, y=avg_weight)) +
+   geom_line() +
+   facet_wrap(vars(species_id)) +
+   theme_bw()
+```
+
+# Customization
+
+```{r}
+  ggplot(data = yearly_sex_counts, aes(x = year, y = n, color = sex)) +
+    geom_line() +
+    facet_wrap(vars(genus)) +
+    labs(title = "Observed genera through time",
+         x = "Year of observation",
+         y = "Number of individuals") +
+    theme_bw()
+```
+
+```{r}
+  ggplot(data = yearly_sex_counts, mapping = aes(x = year, y = n, color = sex)) +
+    geom_line() +
+    facet_wrap(vars(genus)) +
+    labs(title = "Observed genera through time",
+        x = "Year of observation",
+        y = "Number of individuals") +
+    theme_bw() +
+    theme(text=element_text(size = 16))
+```
+
+```{r}
+  ggplot(data = yearly_sex_counts, mapping = aes(x = year, y = n, color = sex)) +
+    geom_line() +
+    facet_wrap(vars(genus)) +
+    labs(title = "Observed genera through time",
+        x = "Year of observation",
+        y = "Number of individuals") +
+    theme_bw() +
+    theme(axis.text.x = element_text(colour = "grey20", size = 12, angle = 90, hjust = 0.5, vjust = 0.5),
+                        axis.text.y = element_text(colour = "grey20", size = 12),
+                        strip.text = element_text(face = "italic"),
+                        text = element_text(size = 16))
+```
+
+```{r}
+grey_theme <- theme(axis.text.x = element_text(colour="grey20", size = 12, 
+                                               angle = 90, hjust = 0.5, 
+                                               vjust = 0.5),
+                    axis.text.y = element_text(colour = "grey20", size = 12),
+                    text=element_text(size = 16))
+
+ggplot(surveys_complete, aes(x = species_id, y = hindfoot_length)) +
+    geom_boxplot() +
+    grey_theme
+```
+
+# Challenge 4
+
+```{r}
+  ggplot(data = surveys_complete, aes(x = species_id, y = weight)) +
+  geom_col(aes(color = species_id))
+```
+
+```{r}
+library(gridExtra)
+```
+
+```{r}
+spp_weight_boxplot <- ggplot(data = surveys_complete, 
+                             aes(x = species_id, y = weight)) +
+  geom_boxplot() +
+  labs(x = "Species", 
+       y = expression(log[10](Weight))) +
+  scale_y_log10() + 
+  labs()
+
+spp_count_plot <- ggplot(data = yearly_counts, 
+                         aes(x = year, y = n, color = genus)) +
+  geom_line() + 
+  labs(x = "Year", y = "Abundance")
+
+grid.arrange(spp_weight_boxplot, spp_count_plot, ncol = 2, widths = c(4, 6))
+
 ```
 

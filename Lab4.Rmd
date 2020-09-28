@@ -24,6 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
   str(report_03_11_2020)
+  View(report_03_11_2020)
 ```
 
 ```{r}
