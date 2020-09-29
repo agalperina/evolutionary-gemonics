@@ -32,3 +32,9 @@ Link to lab 4B - Data visualization with ggplot2
 
 Link to lab 5
 [lab5](Lab5.html)
+
+Link to lab 5 extra
+[Lab5-extra](Lab5-extra.html)
+
+Link to Lab 6
+[Lab6](Lab6.html)
