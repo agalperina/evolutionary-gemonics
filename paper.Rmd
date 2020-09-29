@@ -7,7 +7,7 @@ bibliography: references.bib
 ---
 
 Application written in R [@RCoreTeam] using the Shiny framework [@Chang2015]
-
+Data from [@CSSEGISandData]
 # References
 
 
