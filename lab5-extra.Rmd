@@ -50,26 +50,10 @@ time_series_long_joined_counts <- time_series_long_joined %>%
 ```
 
 # Graphic Output
-```{r, eval = FALSE}
+```{r}
 # Plot graph to a pdf outputfile
 
-pdf("/Users/Anastasia/Downloads/Evo-Geno-CovidGraph.PDF", width=6, height=3)
-time_series_long_joined %>% 
-  group_by(Country_Region,Date) %>% 
-  summarise_at(c("Confirmed", "Deaths"), sum) %>% 
-  filter (Country_Region == "US") %>% 
-    ggplot(aes(x = Date,  y = Deaths)) + 
-    geom_point() +
-    geom_line() +
-    ggtitle("US COVID-19 Deaths")
-dev.off()
-```
-
-```{r, eval = FALSE}
-# Plot graph to a png outputfile
-
-ppi <- 300
-png("/Users/Anastasia/Downloads/Evo-Geno-CovidGraph.PDF", width=6*ppi, height=6*ppi, res=ppi)
+pdf("/Users/Anastasia/Downloads/time_series_example_plot.pdf", width=6, height=3)
 time_series_long_joined %>% 
   group_by(Country_Region,Date) %>% 
   summarise_at(c("Confirmed", "Deaths"), sum) %>% 
@@ -82,20 +66,24 @@ dev.off()
 ```
 
 ```{r}
-# This is the RMarkdown style for inserting images
-# Your image must be in your working directory
-# This command is put OUTSIDE the r code chunk
+# Plot graph to a png outputfile
 
-![](/Users/Anastasia/Downloads/Evo-Geno-CovidGraph.PDF) 
+ppi <- 300
+png("/Users/Anastasia/Downloads/time_series_example_plot.png", width=6*ppi, height=6*ppi, res=ppi)
+time_series_long_joined %>% 
+  group_by(Country_Region,Date) %>% 
+  summarise_at(c("Confirmed", "Deaths"), sum) %>% 
+  filter (Country_Region == "US") %>% 
+    ggplot(aes(x = Date,  y = Deaths)) + 
+    geom_point() +
+    geom_line() +
+    ggtitle("US COVID-19 Deaths")
+dev.off()
 ```
 
-```{r, eval = FALSE}
-  # This is an alternative way using html. 
-# Remember that it must be in your working directory or you will need to specify the full path.
-# The html is put OUTSIDE the r code chunk.
+![US COVID-19 Deaths](/Users/Anastasia/Downloads/time_series_example_plot.png) 
 
-<img src="images/time_series_example_plot.png" alt="US COVID-19 Deaths" style="width: 600px;"/>
-```
+<img src="/Users/Anastasia/Downloads/time_series_example_plot.png" alt="US COVID-19 Deaths" style="width: 600px;"/>
 
 #Interactive graphs 
 
@@ -103,7 +91,7 @@ dev.off()
   library(plotly)
 ```
 
-```{r, eval = FALSE}
+```{r}
 ggplotly(
   time_series_long_joined %>% 
     group_by(Country_Region,Date) %>% 

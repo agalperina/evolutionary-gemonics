@@ -221,7 +221,7 @@ time_series_long_joined_counts %>%
 
   View Lab4B
   
-#2 
+#2 and #3
 
 ```{r}
 Confirmed_State_6_13 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/06-13-2020.csv")) %>%
@@ -287,10 +287,8 @@ head(Confirmed_State_6_13_9_13_joined)
                             names_to = "Date", values_to = "Confirmed")
 ```
 
-#3 
-
 ```{r, fig.width = 5, fig.height = 10}
-  ggplot(Confirmed_State_3_13_9_13_joined_long, aes( x = Confirmed,  y = Province_State))  + 
+  ggplot(Confirmed_State_6_13_9_13_joined_long, aes( x = Confirmed,  y = Province_State))  + 
     geom_bar(stat="identity") +
     ggtitle("US Covid Data - 6/13/20 vs 9/13/20") +
     labs(x = "Number Cases") + 
