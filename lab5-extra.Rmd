@@ -124,7 +124,7 @@ ggplotly(p)
   theme_set(theme_bw())
 ```
 
-```{r, eval = FALSE}
+```{r}
 data_time <- time_series_long_joined %>% 
     group_by(Country_Region,Date) %>% 
     summarise_at(c("Confirmed", "Deaths"), sum) %>% 
