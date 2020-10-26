@@ -45,3 +45,6 @@ Link to Lab 7
 Link to Lab 8
 [Lab8](Lab8.html)
 
+Link to Lab 9
+[Lab9](Lab9.html)
+
