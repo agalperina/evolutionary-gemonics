@@ -48,3 +48,6 @@ Link to Lab 8
 Link to Lab 9
 [Lab9](Lab9.html)
 
+Link to Lab9x
+[Lab9](Lab9x.Rmd)
+

@@ -1,0 +1,174 @@
+---
+title: "Lab9x"
+author: "Anastasia Galperina"
+date: "10/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loops
+```{r}
+## Generate a uniform random number
+x <- runif(1, 0, 10)  
+if(x > 3) {
+        y <- 10
+} else {
+        y <- 0
+}
+```
+
+```{r}
+for(i in 1:10) {
+        print(i)
+}
+```
+
+```{r}
+for(i in 1:10) {
+        print(i + 1)
+}
+```
+
+```{r}
+x <- c("a", "b", "c", "d")
+for(i in 1:4) {
+        ## Print out each element of 'x'
+        print(x[i])  
+}
+```
+
+```{r}
+for(i in 1:2) {
+        ## Print out each element of 'x'
+        print(x[i])  
+}
+```
+
+```{r}
+## Generate a sequence based on length of 'x'
+for(i in seq_along(x)) {   
+        print(x[i])
+}
+```
+
+```{r}
+for(letter in x) {
+        print(letter)
+}
+```
+
+```{r}
+for(i in 1:4) print(x[i])
+```
+
+```{r}
+for(i in 1:2) print(x[i])
+```
+
+```{r}
+x <- matrix(1:6, 2, 3)
+for(i in seq_len(nrow(x))) {
+        for(j in seq_len(ncol(x))) {
+                print(x[i, j])
+        }   
+}
+```
+
+```{r}
+count <- 0
+while(count < 10) {
+        print(count)
+        count <- count + 1
+}
+```
+
+```{r}
+z <- 5
+set.seed(1)
+while(z >= 3 && z <= 10) {
+        coin <- rbinom(1, 1, 0.5)
+        
+        if(coin == 1) {  
+                z <- z + 1
+        } else {
+                z <- z - 1
+        } 
+}
+print(z)
+```
+
+# Functions
+```{r}
+f <- function() {
+        cat("Hello, world!\n")
+}
+f()
+```
+
+```{r}
+f <- function(num) {
+         for(i in seq_len(num)) {
+                cat("Hello, world!\n") # /n => new line
+         }
+ }
+f(3)
+```
+
+```{r}
+f <- function(num) {
+       hello <- "Hello, world!\n"
+       for(i in seq_len(num)) {
+               cat(hello)
+       }
+       chars <- nchar(hello) * num
+       chars
+}
+meaningoflife <- f(3)
+print(meaningoflife)
+```
+
+```{r}
+f <- function(num = 1) {
+       hello <- "Hello, world!\n"
+       for(i in seq_len(num)) {
+               cat(hello)
+       }
+       chars <- nchar(hello) * num
+       chars
+}
+f()    ## Use default value for 'num'
+f(2)
+f(num = 2)
+```
+
+```{r}
+# Number is even or odd
+f <- function(num)
+    {
+      if (num %% 2 == 0)
+        print("is even")
+      else
+        print("is odd")
+    }
+f(3)
+f(15)
+f(4)
+f(24)
+```
+
+```{r}
+# factorial 
+f <- function(num)
+    {
+      for (i in 2:num)
+      {
+        num = num * (i - 1)
+      }
+      num
+    }
+f(3)
+```
+
