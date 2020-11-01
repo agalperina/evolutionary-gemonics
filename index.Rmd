@@ -49,5 +49,5 @@ Link to Lab 9
 [Lab9](Lab9.html)
 
 Link to Lab9x
-[Lab9](Lab9x.Rmd)
+[Lab9](Lab9x.html)
 
