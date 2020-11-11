@@ -54,3 +54,6 @@ Link to Lab9x
 Link to Lab 10
 [Lab10](Lab10.html)
 
+Link to Lab 11
+[Lab11](Lab11.html)
+
