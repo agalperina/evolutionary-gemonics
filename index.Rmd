@@ -1,16 +1,16 @@
 ---
-title: "index"
+title: "Fall 2020 Evolutionary-Genomics Lab Reports"
 author: "Anastasia Galperina"
 date: "9/3/2020"
-output: html_document
+output:
+  prettydoc::html_pretty:
+    theme: hpstr
+    highlight: github
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-![](/Users/Anastasia/Downloads/genomics.PNG)
-
-These are my Evolutionary Genomics Lab Reports
+These are my Evolutionary Genomics Lab Reports: 
 
 Link to Lab 1
 [Lab1](Lab1.html)
