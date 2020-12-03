@@ -1,0 +1,91 @@
+---
+title: "Lab12"
+author: "Anastasia Galperina"
+date: "11/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, eval = FALSE}
+library(RCy3)
+cytoscapePing()
+```
+
+# Overview of RCy3
+```{r, eval = FALSE}
+setVisualStyle('Marquee')
+```
+![](/Users/anastasia/Downloads/cytoscape_RCy3_overview(1).png)
+
+```{r, eval = FALSE}
+style.name = "myStyle"
+defaults <- list(NODE_SHAPE="diamond",
+                 NODE_SIZE=30,
+                 EDGE_TRANSPARENCY=120,
+                 NODE_LABEL_POSITION="W,E,c,0.00,0.00")
+nodeLabels <- mapVisualProperty('node label','id','p')
+nodeFills <- mapVisualProperty('node fill color','group','d',c("A","B"), c("#FF9900","#66AAAA"))
+arrowShapes <- mapVisualProperty('Edge Target Arrow Shape','interaction','d',c("activates","inhibits","interacts"),c("Arrow","T","None"))
+edgeWidth <- mapVisualProperty('edge width','weight','p')
+
+createVisualStyle(style.name, defaults, list(nodeLabels,nodeFills,arrowShapes,edgeWidth))
+setVisualStyle(style.name)
+```
+![](/Users/anastasia/Downloads/cytoscape_RCy3_overview(2).png)
+
+```{r, eval = FALSE}
+lockNodeDimensions(FALSE, style.name)
+```
+![](/Users/anastasia/Downloads/cytoscape_RCy3_overview(3).png)
+
+```{r, eval = FALSE}
+ g = new ('graphNEL', edgemode='directed')
+    g = graph::addNode ('A', g)
+    g = graph::addNode ('D', g)
+    g = graph::addNode ('C', g, edges = list('D'))
+    g = graph::addNode ('B', g, edges = list(c('A','D','C')))
+    createNetworkFromGraph (g, title='simple network', collection='GraphNEL Example')
+```
+![](/Users/anastasia/Downloads/cytoscape_RCy3_overview(4).png)
+
+```{r, eval = FALSE}
+df <- data.frame (moleculeType=c('kinase','TF','cytokine','cytokine'),
+                     log2fc=c(1.8,3.0,-1.2,-2.5),
+                     row.names = c('A','B','C','D'), # row.names = node names
+                     stringsAsFactors = FALSE)       # important when loading strings!
+    loadTableData (df)
+```
+
+```{r, eval = FALSE}
+ setNodeShapeDefault ('OCTAGON')
+    setNodeColorDefault ('#AAFF88')
+    setNodeSizeDefault  (60)
+    setNodeFontSizeDefault (30)
+```
+![](/Users/anastasia/Downloads/cytoscape_RCy3_overview(5).png)
+
+```{r, eval = FALSE}
+selectNodes ('C','name')
+getSelectedNodes()
+```
+
+```{r, eval = FALSE}
+selectFirstNeighbors()
+```
+
+```{r, eval = FALSE}
+node.names <- getSelectedNodes()
+```
+
+```{r, eval = FALSE}
+clearSelection()
+?clearSelection
+```
+
+# Basic Data Visualization
+![](/Users/anastasia/Downloads/cytoscapeCorrectNodeNetwork.png)
+
+# Differentially Expressed Genes
