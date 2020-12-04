@@ -89,3 +89,4 @@ clearSelection()
 ![](/Users/anastasia/Downloads/cytoscapeCorrectNodeNetwork.png)
 
 # Differentially Expressed Genes
+![](/Users/anastasia/Downloads/cytoscapeDifferentiallyExpGenes.png)
